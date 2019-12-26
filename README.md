@@ -1,6 +1,8 @@
 # AQuEOSS
 Action Query Effect-Oriented Socket Server
 
+![image info](./docs/aqueoss.png)
+
 ## What?
 
 A server-side architecture inspired by microservice architecture, CQRS, Redux Saga and PubSub.
