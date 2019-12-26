@@ -1,0 +1,3 @@
+module.exports = {
+  CREATE_ACCOUNTS: 'ACTION/CREATE_ACCOUNTS',
+};
