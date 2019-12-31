@@ -6,14 +6,14 @@ const sendEventTo = ({ io, id, eventType, payload }) => io.to(`${id}`).emit(even
 
 const sendActionTo = ({ io, actionType, payload }) => new Promise(resolve => {
   io.emit(actionType, payload, result => {
-    console.log(result);
+    console.log({ sendActionTo: result });
     resolve(result);
   })
 });
 
 const uuid = () => uuidv4();
 
-const rejectWith = ({ message }) => Promise.reject(message);
+const rejectWith = error => Promise.reject(error);
 
 module.exports = {
   broadcast,
