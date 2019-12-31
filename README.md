@@ -10,7 +10,7 @@ A server-side architecture inspired by microservice architecture, CQRS, Redux Sa
 - Scales processing units independently
 - Separates read and write operations
 - Publishes realtime events
-- Purifies code by describe effects as data
+- Purifies code by describing effects as data
 - Deploys to any kubernetes cluster with a single command
 
 ## Vocbulary
