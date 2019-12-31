@@ -10,9 +10,7 @@ const EVENT_TYPES = require('../../system/events/types');
 // const SAGAS = require('../../system/sagas');
 const VALIDATORS = require('../../system/validators');
 
-const ackEcho = (action, ack) => {
-  ack(action);
-};
+const ackEcho = (action, ack) => ack(action);
 
 const setupActionHandlers = io => socket =>
   socket

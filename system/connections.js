@@ -4,9 +4,11 @@ const socketioJwt = require('socketio-jwt');
 
 const { JWT } = require('../config');
 
+const authenticatedConnectionLabelFor = ({ id, decoded_token }) => decoded_token.clientName || decoded_token.email;
+
 const authenticateConnection = secret => socketioJwt.authorize({ secret, handshake: true, auth_header_required: true });
 
-const logClientConnectedEvent = ({ id, decoded_token }) => console.log(`🔌  ${chalk.blue(decoded_token.clientName || decoded_token.email)} connected on ${id}`);
+const logClientConnectedEvent = socket => console.log(`🔌  ${chalk.blue(authenticatedConnectionLabelFor(socket))} connected on ${socket.id}`);
 
 const logSocketListeningEvent = socket => console.log(`🚀  ${chalk.blue(socket.NAME)} listening at http://localhost:${socket.PORT}`)
 
@@ -22,6 +24,7 @@ const socketOptionsforClient = clientName => ({
 
 module.exports = {
   authenticateConnection,
+  authenticatedConnectionLabelFor,
   logClientConnectedEvent,
   logSocketListeningEvent,
   socketOptionsforClient,

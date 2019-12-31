@@ -1,16 +1,20 @@
 const { call, cmds } = require("effects-as-data");
 const { camelize } = require('humps');
-const { last, mergeDeepRight, path, includes, split } = require('ramda');
+const { last, mergeDeepRight, path, pathOr, split } = require('ramda');
 
+const { authenticatedConnectionLabelFor } = require('../connections');
 const { isValid } = require('./validation');
 const { sendEventTo, uuid } = require('../../system/effects');
 const EVENT_TYPES = require('../events/types');
 
-const validateAction = config => async ([actionType, action], next) => {
+const validateAction = config => async ([actionType, action, ack], next) => {
   const validator = config.VALIDATORS[actionType];
 
   if (validator && !isValid(validator, action))
-    return next(new Error(`${config.socket.decoded_token.email} issued invalid ${actionType} ${JSON.stringify(action)}`));
+    return ack({
+      success: false,
+      result: `${authenticatedConnectionLabelFor(config.socket)} issued invalid ${actionType} ${JSON.stringify(action)}`
+    });
 
   next();
 };
@@ -64,7 +68,7 @@ const changeActionStatus = function * (eventType, action, config) {
 
 const actionResultPathFor = key => ['meta', 'saga', 'results', key, 'result'];
 
-const isSagaOK = action => includes(path(['meta', 'saga', 'status'], action), ['initiated', 'succeeded']);
+const isSagaOK = action => pathOr(true, ['meta', 'saga', 'success'], action);
 
 const mergeResponseIntoAction = (resultKey, response, action) =>
   mergeDeepRight(action, {
@@ -78,7 +82,7 @@ const mergeResponseIntoAction = (resultKey, response, action) =>
     }
   });
 
-const createSagaRunner = config => function * (originalAction) {
+const configSagaRunner = config => function * (originalAction) {
   const rollbackSaga = [];
   const saga = config.SAGAS[config.actionType];
 
@@ -121,7 +125,7 @@ const createSagaRunner = config => function * (originalAction) {
       }
     }
 
-    action = yield cmds.call(changeActionStatus, EVENT_TYPES.SAGA_ROLLBACK_SUCCEEDED, action, config);
+    return yield cmds.call(changeActionStatus, EVENT_TYPES.SAGA_ROLLBACK_SUCCEEDED, action, config);
   }
 
   action = yield cmds.call(changeActionStatus, EVENT_TYPES.SAGA_SUCCEEDED, action, config);
@@ -133,7 +137,7 @@ const runSaga = sagaRunner => action => call(sagaRunner, action);
 
 module.exports = {
   actionResultPathFor,
-  createSagaRunner,
+  configSagaRunner,
   runSaga,
   validateAction
 };

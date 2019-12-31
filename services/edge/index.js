@@ -4,7 +4,7 @@ const edgeSocketServer = require('socket.io')(http);
 const io = require('socket.io-client');
 
 const { authenticateConnection, logClientConnectedEvent, logSocketListeningEvent, socketOptionsforClient } = require('../../system/connections');
-const { createSagaRunner, runSaga, validateAction } = require('../../system/lib/action-handling');
+const { configSagaRunner, runSaga, validateAction } = require('../../system/lib/action-handling');
 const { JWT, SERVICES: { ACCOUNTS, EDGE } } = require('../../config');
 const ACTION_TYPES = require('../../system/actions/types');
 const EVENT_TYPES = require('../../system/events/types');
@@ -19,7 +19,7 @@ const setupActionHandlers = io => socket => {
   return socket
     .use(validateAction({ socket, VALIDATORS }))
     // .use(authorizeAction({ socket, AUTHORIZERS }))
-    .on(EVENT_TYPES.ACCOUNTS_CREATION_REQUESTED_BY_CLIENT, runSaga(createSagaRunner({ ...config, actionType: ACTION_TYPES.CREATE_ACCOUNTS })));
+    .on(EVENT_TYPES.ACCOUNTS_CREATION_REQUESTED_BY_CLIENT, runSaga(configSagaRunner({ ...config, actionType: ACTION_TYPES.CREATE_ACCOUNTS })));
 };
 
 edgeSocketServer
