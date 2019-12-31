@@ -32,9 +32,9 @@ const uuid = () => ({
   type: 'uuid',
 });
 
-const rejectWith = message => ({
+const rejectWith = error => ({
   type: 'rejectWith',
-  message,
+  error,
 });
 
 const get = effect(axios.get);
