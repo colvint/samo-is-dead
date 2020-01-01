@@ -1,17 +1,15 @@
 const app = require('express')();
 const edgeService = require('http').createServer(app);
 const edgeSocketServer = require('socket.io')(edgeService);
-const io = require('socket.io-client');
 
-const { authenticateConnection, logClientConnectedEvent, logSocketListeningEvent, socketOptionsforClient } = require('../../system/connections');
+const { accountsSocketClient } = require('./clients');
+const { authenticateConnection, logClientConnectedEvent, logSocketListeningEvent } = require('../../system/connections');
 const { configSagaRunner, runSaga, validateAction } = require('../../system/lib/action-handling');
-const { JWT, SERVICES: { ACCOUNTS, EDGE } } = require('../../config');
+const { JWT, SERVICES: { EDGE } } = require('../../config');
 const ACTION_TYPES = require('../../system/actions/types');
 const ACTIONS = require('../../system/actions');
 const EVENT_TYPES = require('../../system/events/types');
 const VALIDATORS = require('../../system/validators');
-
-const accountsSocketClient = io(`http://localhost:${ACCOUNTS.SOCKET_PORT}`, socketOptionsforClient(EDGE.NAME));
 
 const setupActionHandlers = io => socket => {
   const config = { io, socket, ACTIONS, accountsSocketClient };
