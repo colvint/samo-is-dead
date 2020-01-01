@@ -12,14 +12,14 @@ const { getRandomUsers } = require('../../system/actions/steps');
 
 const ackCreateAccounts = (action, ack) => call(getRandomUsers, action.data.count).then(ack);
 
-const setupHandlers = io => socket =>
+const setupHandlers = socket =>
   socket
     // .use(validateAction({ socket, VALIDATORS }))
     .on(STEP_TYPES.CREATE_ACCOUNTS, ackCreateAccounts);
 
 accountsSocketServer
   .use(authenticateConnection(JWT.SERVER_SECRET))
-  .on(EVENT_TYPES.SOCKET_CONNECTED, setupHandlers(accountsSocketServer))
+  .on(EVENT_TYPES.SOCKET_CONNECTED, setupHandlers)
   .on(EVENT_TYPES.SOCKET_CONNECTED, logClientConnectedEvent);
 
 accountsService
