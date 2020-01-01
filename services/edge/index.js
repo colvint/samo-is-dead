@@ -1,6 +1,6 @@
 const app = require('express')();
-const http = require('http').createServer(app);
-const edgeSocketServer = require('socket.io')(http);
+const edgeService = require('http').createServer(app);
+const edgeSocketServer = require('socket.io')(edgeService);
 const io = require('socket.io-client');
 
 const { authenticateConnection, logClientConnectedEvent, logSocketListeningEvent, socketOptionsforClient } = require('../../system/connections');
@@ -27,5 +27,5 @@ edgeSocketServer
   .on(EVENT_TYPES.SOCKET_CONNECTED, setupActionHandlers(edgeSocketServer))
   .on(EVENT_TYPES.SOCKET_CONNECTED, logClientConnectedEvent);
 
-http
+edgeService
   .listen(EDGE.SOCKET_PORT, () => logSocketListeningEvent(EDGE) );

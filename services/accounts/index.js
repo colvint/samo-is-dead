@@ -1,7 +1,7 @@
 const { call } = require("effects-as-data");
 const app = require('express')();
-const http = require('http').createServer(app);
-const accountsSocketServer = require('socket.io')(http);
+const accountsService = require('http').createServer(app);
+const accountsSocketServer = require('socket.io')(accountsService);
 
 const { authenticateConnection, logClientConnectedEvent, logSocketListeningEvent } = require('../../system/connections');
 const { JWT, SERVICES: { ACCOUNTS } } = require('../../config');
@@ -22,5 +22,5 @@ accountsSocketServer
   .on(EVENT_TYPES.SOCKET_CONNECTED, setupHandlers(accountsSocketServer))
   .on(EVENT_TYPES.SOCKET_CONNECTED, logClientConnectedEvent);
 
-http
+accountsService
   .listen(ACCOUNTS.SOCKET_PORT, () => logSocketListeningEvent(ACCOUNTS));
