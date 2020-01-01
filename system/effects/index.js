@@ -32,11 +32,6 @@ const uuid = () => ({
   type: 'uuid',
 });
 
-const rejectWith = error => ({
-  type: 'rejectWith',
-  error,
-});
-
 const get = effect(axios.get);
 
 module.exports = {
@@ -44,6 +39,5 @@ module.exports = {
   sendActionTo,
   sendEventTo,
   get,
-  rejectWith,
   uuid,
 };

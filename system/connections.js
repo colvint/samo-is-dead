@@ -10,7 +10,9 @@ const authenticateConnection = secret => socketioJwt.authorize({ secret, handsha
 
 const logClientConnectedEvent = socket => console.log(`🔌  ${chalk.blue(authenticatedConnectionLabelFor(socket))} connected on ${socket.id}`);
 
-const logSocketListeningEvent = socket => console.log(`🚀  ${chalk.blue(socket.NAME)} listening at http://localhost:${socket.PORT}`)
+const logServiceListeningEvent = (serviceName, servicePort) => console.log(`🚀  ${chalk.blue(serviceName)} listening at http://localhost:${servicePort}`)
+
+const logSocketListeningEvent = serviceConfig => logServiceListeningEvent(serviceConfig.NAME, serviceConfig.SOCKET_PORT);
 
 const socketOptionsforClient = clientName => ({
   transportOptions: {

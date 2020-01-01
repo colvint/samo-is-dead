@@ -1,16 +1,12 @@
 module.exports = {
   SERVICES: {
     EDGE: {
-      SOCKET: {
-        PORT: 3030,
-        NAME: 'EDGE_SOCKET'
-      }
+      NAME: 'EDGE',
+      SOCKET_PORT: 3030
     },
     ACCOUNTS: {
-      SOCKET: {
-        PORT: 3031,
-        NAME: 'ACCOUNTS_SOCKET'
-      }
+      NAME: 'ACCOUNTS',
+      SOCKET_PORT: 3031
     }
   },
   JWT: {

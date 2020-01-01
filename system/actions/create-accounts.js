@@ -2,6 +2,6 @@ const { createAccounts } = require('./steps');
 
 module.exports = [
   {
-    up: { run: createAccounts, resultKey: 'accounts' }
+    up: { type: 'action', name: 'createAccounts', run: createAccounts }
   }
 ];

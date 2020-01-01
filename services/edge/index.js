@@ -7,14 +7,14 @@ const { authenticateConnection, logClientConnectedEvent, logSocketListeningEvent
 const { configSagaRunner, runSaga, validateAction } = require('../../system/lib/action-handling');
 const { JWT, SERVICES: { ACCOUNTS, EDGE } } = require('../../config');
 const ACTION_TYPES = require('../../system/actions/types');
+const ACTIONS = require('../../system/actions');
 const EVENT_TYPES = require('../../system/events/types');
-const SAGAS = require('../../system/sagas');
 const VALIDATORS = require('../../system/validators');
 
-const accountsSocketClient = io(`http://localhost:${ACCOUNTS.SOCKET.PORT}`, socketOptionsforClient(EDGE.SOCKET.NAME));
+const accountsSocketClient = io(`http://localhost:${ACCOUNTS.SOCKET_PORT}`, socketOptionsforClient(EDGE.NAME));
 
 const setupActionHandlers = io => socket => {
-  const config = { io, socket, SAGAS, accountsSocketClient };
+  const config = { io, socket, ACTIONS, accountsSocketClient };
 
   return socket
     .use(validateAction({ socket, VALIDATORS }))
@@ -28,4 +28,4 @@ edgeSocketServer
   .on(EVENT_TYPES.SOCKET_CONNECTED, logClientConnectedEvent);
 
 http
-  .listen(EDGE.SOCKET.PORT, () => logSocketListeningEvent(EDGE.SOCKET) );
+  .listen(EDGE.SOCKET_PORT, () => logSocketListeningEvent(EDGE) );

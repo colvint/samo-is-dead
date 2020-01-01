@@ -2,11 +2,11 @@ const { cmds } = require('effects-as-data');
 // const { pathOr } = require('ramda');
 
 const { get, sendActionTo } = require('../../effects');
-const { CREATE_ACCOUNTS } = require('../../actions/types');
+const { CREATE_ACCOUNTS } = require('../types');
 
 // const actionResultPath = key => ['meta', 'saga', 'results', key, 'result'];
 
-const getRandomUsers = function * (action) {
+const getRandomUsers = function * (count = 1) {
   const { success, result } = yield cmds.envelope(get(`https://randomuser.me/api/?results=${count}`));
 
   return {
