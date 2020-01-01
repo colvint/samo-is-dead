@@ -15,13 +15,13 @@ const callStep = step => (action, ack) => call(step, action, ack);
 
 const createAccounts = config => function * (action, ack) {
   const response = yield cmds.call(getRandomUsers, action.data.count);
-  const users = response.result;
 
-  yield broadcastEvent(config.socket, EVENT_TYPES.STATE_CHANGE_ACCOUNTS_CREATED, users);
+  if (response.success)
+    yield broadcastEvent(config.socket, EVENT_TYPES.STATE_CHANGE_ACCOUNTS_CREATED, response.result);
 
   ack(response);
 
-  return users;
+  return response.result;
 };
 
 const setupHandlers = socket =>
