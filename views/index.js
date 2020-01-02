@@ -10,13 +10,13 @@ const gateway = new ApolloGateway({
     // { name: "listings", url: "http://localhost:4002/graphql" },
     // { name: "reviews", url: "http://localhost:4003/graphql" },
   ]
-})
+});
 
 const server = new ApolloServer({
   gateway,
   subscriptions: false, // Disable subscriptions (not currently supported with ApolloGateway)
-})
+});
 
 server.listen(VIEWS.GATEWAY.GRAPHQL_PORT).then(({ url }) => {
   console.log(`🚀  ${chalk.blue(VIEWS.GATEWAY.NAME)} graphQL federation ready at ${url}`)
-})
+});
