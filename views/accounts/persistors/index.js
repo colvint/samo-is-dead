@@ -1,4 +1,4 @@
-const { dbInsert, uuid } = require('../../../system/effects');
+const { dbInsert } = require('../../../system/effects');
 
 const insertAccounts = function * (db, accounts) {
   return yield dbInsert(db, 'accounts', accounts.map(a => ({
