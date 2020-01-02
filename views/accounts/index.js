@@ -1,4 +1,5 @@
 const { ApolloServer, gql } = require('apollo-server');
+const { buildFederatedSchema } = require('@apollo/federation');
 const { call } = require('effects-as-data');
 const chalk = require('chalk');
 
@@ -33,8 +34,12 @@ const resolvers = {
 };
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+  schema: buildFederatedSchema([
+    {
+      typeDefs,
+      resolvers
+    }
+  ])
 });
 
 server.listen(VIEWS.ACCOUNTS.GRAPHQL_PORT).then(({ url }) => {

@@ -3,7 +3,11 @@ module.exports = {
     ACCOUNTS: {
       NAME: 'ACCOUNTS_VIEW',
       GRAPHQL_PORT: 3033
-    }
+    },
+    GATEWAY: {
+      NAME: 'GATEWAY_VIEW',
+      GRAPHQL_PORT: 3032
+    },
   },
   SERVICES: {
     EDGE: {
