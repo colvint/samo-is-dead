@@ -4,11 +4,10 @@ const chalk = require('chalk');
 
 const { accountsSocketClient } = require('./clients');
 const { insertAccounts } = require('./persistors');
-const dbConfig = require('./knexfile');
-const accountsDb = require('knex')(dbConfig);
-const EVENT_TYPES = require('../../system/events/types');
+const { resolveQuery } = require('../lib');
 const { VIEWS } = require('../../config');
-const { dbSelectWhere } = require('../../system/effects')
+const accountsDb = require('knex')(require('./knexfile'));
+const EVENT_TYPES = require('../../system/events/types');
 
 accountsSocketClient
   .on(EVENT_TYPES.STATE_CHANGE_ACCOUNTS_CREATED, accounts => call(insertAccounts, accountsDb, accounts));
@@ -26,10 +25,6 @@ const typeDefs = gql`
     gender: String
   }
 `;
-
-const resolveQuery = function * (db, tableName, criteria) {
-  return yield dbSelectWhere(db, tableName, criteria);
-};
 
 const resolvers = {
   Query: {
