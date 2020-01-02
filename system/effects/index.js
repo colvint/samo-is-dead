@@ -34,8 +34,16 @@ const uuid = () => ({
 
 const get = effect(axios.get);
 
+const dbInsert = (db, tableName, records) => ({
+  type: 'dbInsert',
+  db,
+  tableName,
+  records
+});
+
 module.exports = {
   broadcastEvent,
+  dbInsert,
   sendActionTo,
   sendEventTo,
   get,

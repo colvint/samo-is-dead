@@ -8,8 +8,11 @@ const sendActionTo = ({ io, actionType, payload }) => new Promise(resolve => io.
 
 const uuid = () => uuidv4();
 
+const dbInsert = ({ db, tableName, records }) => db(tableName).insert(records.map(r => ({ id: uuidv4(), ...r })), '*');
+
 module.exports = {
   broadcastEvent,
+  dbInsert,
   sendActionTo,
   sendEventTo,
   uuid

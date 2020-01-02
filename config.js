@@ -1,11 +1,23 @@
 module.exports = {
+  VIEWS: {
+    ACCOUNTS: {
+      NAME: 'ACCOUNTS_VIEW',
+      DB: {
+        client: 'sqlite3',
+        connection: {
+          filename: './dbs/accounts-view.sqlite'
+        },
+        useNullAsDefault: true
+      }
+    }
+  },
   SERVICES: {
     EDGE: {
-      NAME: 'EDGE',
+      NAME: 'EDGE_SERVICE',
       SOCKET_PORT: 3030
     },
     ACCOUNTS: {
-      NAME: 'ACCOUNTS',
+      NAME: 'ACCOUNTS_SERVICE',
       SOCKET_PORT: 3031
     }
   },

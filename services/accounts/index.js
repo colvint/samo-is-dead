@@ -11,8 +11,6 @@ const EVENT_TYPES = require('../../system/events/types');
 const { getRandomUsers } = require('../../system/actions/steps');
 const { broadcastEvent } = require('../../system/effects');
 
-require('./consumers');
-
 const callStep = step => (action, ack) => call(step, action, ack);
 
 const createAccounts = config => function * (action, ack) {
