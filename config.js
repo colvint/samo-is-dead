@@ -2,7 +2,14 @@ module.exports = {
   VIEWS: {
     ACCOUNTS: {
       NAME: 'ACCOUNTS_VIEW',
-      GRAPHQL_PORT: 3033
+      GRAPHQL_PORT: 3033,
+      DB: {
+        client: 'sqlite3',
+        connection: {
+          filename: './views/accounts/db.sqlite3'
+        },
+        useNullAsDefault: true      
+      },
     },
     GATEWAY: {
       NAME: 'GATEWAY_VIEW',

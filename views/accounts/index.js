@@ -7,7 +7,7 @@ const { accountsSocketClient } = require('./clients');
 const { insertAccounts } = require('./persistors');
 const { resolveQuery } = require('../lib');
 const { VIEWS } = require('../../config');
-const accountsDb = require('knex')(require('./knexfile'));
+const accountsDb = require('knex')(VIEWS.ACCOUNTS.DB);
 const EVENT_TYPES = require('../../system/events/types');
 
 accountsSocketClient
