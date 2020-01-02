@@ -10,9 +10,12 @@ const uuid = () => uuidv4();
 
 const dbInsert = ({ db, tableName, records }) => db(tableName).insert(records.map(r => ({ id: uuidv4(), ...r })), '*');
 
+const dbSelectWhere = ({ db, tableName, criteria }) => db(tableName).where(criteria);
+
 module.exports = {
   broadcastEvent,
   dbInsert,
+  dbSelectWhere,
   sendActionTo,
   sendEventTo,
   uuid

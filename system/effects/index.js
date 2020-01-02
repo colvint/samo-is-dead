@@ -38,12 +38,20 @@ const dbInsert = (db, tableName, records) => ({
   type: 'dbInsert',
   db,
   tableName,
-  records
+  records,
+});
+
+const dbSelectWhere = (db, tableName, criteria = {}) => ({
+  type: 'dbSelectWhere',
+  db,
+  tableName,
+  criteria,
 });
 
 module.exports = {
   broadcastEvent,
   dbInsert,
+  dbSelectWhere,
   sendActionTo,
   sendEventTo,
   get,

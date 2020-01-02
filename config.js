@@ -8,7 +8,8 @@ module.exports = {
           filename: './dbs/accounts-view.sqlite'
         },
         useNullAsDefault: true
-      }
+      },
+      GRAPHQL_PORT: 3033
     }
   },
   SERVICES: {
