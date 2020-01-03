@@ -17,7 +17,7 @@ const setupActionHandlers = io => socket => {
   return socket
     .use(validateAction({ socket, VALIDATORS }))
     // .use(authorizeAction({ socket, AUTHORIZERS }))
-    .on(EVENT_TYPES.ACCOUNTS_CREATION_REQUESTED_BY_CLIENT, runSaga(configSagaRunner({ ...config, actionType: ACTION_TYPES.CREATE_ACCOUNTS })));
+    .on(EVENT_TYPES.FROM_CLIENT_ACCOUNTS_CREATION_REQUESTED, runSaga(configSagaRunner({ ...config, actionType: ACTION_TYPES.CREATE_ACCOUNTS })));
 };
 
 edgeSocketServer

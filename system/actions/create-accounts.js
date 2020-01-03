@@ -1,7 +1,10 @@
-const { createAccounts } = require('./steps');
+const { createAccounts, notifyAccountsCreated } = require('./steps');
 
 module.exports = [
   {
-    up: { type: 'action', name: 'createAccounts', run: createAccounts }
+    up: { name: 'createAccounts', run: createAccounts },
+  },
+  {
+    up: { name: 'notifyAccountsCreated', run: notifyAccountsCreated },
   }
 ];

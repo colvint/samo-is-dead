@@ -13,12 +13,12 @@ const broadcastEvent = (socket, eventType, payload) => ({
   socket,
 });
 
-const sendEventTo = (eventType, payload, config) => ({
+const sendEventTo = (io, socketId, eventType, payload) => ({
   type: 'sendEventTo',
   eventType,
-  id: config.socket.id,
-  io: config.io,
+  io,
   payload,
+  socketId,
 });
 
 const sendActionTo = (io, actionType, payload) => ({

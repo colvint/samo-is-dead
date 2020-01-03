@@ -2,7 +2,7 @@ const uuidv4 = require('uuid/v4');
 
 const broadcastEvent = ({ socket, eventType, payload }) => socket.broadcast.emit(eventType, payload);
 
-const sendEventTo = ({ io, id, eventType, payload }) => io.to(`${id}`).emit(eventType, payload);
+const sendEventTo = ({ io, socketId, eventType, payload }) => io.to(`${socketId}`).emit(eventType, payload);
 
 const sendActionTo = ({ io, actionType, payload }) => new Promise(resolve => io.emit(actionType, payload, resolve));
 

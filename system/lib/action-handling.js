@@ -55,7 +55,7 @@ const updateActionStatus = function * (eventType, action, config) {
     }
   });
 
-  yield sendEventTo(eventType, updatedAction, config);
+  yield sendEventTo(config.io, config.socket.id, eventType, updatedAction);
 
   return updatedAction;
 };
@@ -80,17 +80,13 @@ const configSagaRunner = config => function * (originalAction) {
 
   let action = yield cmds.call(initiateAction, originalAction, config);
 
-  yield sendEventTo(EVENT_TYPES.ACTION_INITIATED, action, config);
+  yield sendEventTo(config.io, config.socket.id, EVENT_TYPES.ACTION_INITIATED, action);
 
   // up
   for (let step of saga) {
     if (step.down) rollbackSaga.unshift(step.down);
 
-    action = mergeResponseIntoAction(
-      step.up.name,
-      yield cmds.call(step.up.run(config), action),
-      action
-    );
+    action = mergeResponseIntoAction(step.up.name, yield cmds.call(step.up.run(config), action), action);
 
     if (!isSagaOK(action)) {
       action = yield cmds.call(updateActionStatus, EVENT_TYPES.ACTION_FAILED, action, config);
@@ -104,11 +100,7 @@ const configSagaRunner = config => function * (originalAction) {
     action = yield cmds.call(updateActionStatus, EVENT_TYPES.ACTION_ROLLBACK_INITIATED, action, config);
 
     for (let step of rollbackSaga) {
-      action = mergeResponseIntoAction(
-        step.name,
-        yield cmds.call(step.run(config), action),
-        action
-      );
+      action = mergeResponseIntoAction(step.name, yield cmds.call(step.run(config), action), action);
 
       if (!isSagaOK(action)) {
         action = yield cmds.call(updateActionStatus, EVENT_TYPES.ACTION_ROLLBACK_FAILED, action, config);
