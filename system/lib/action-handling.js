@@ -4,7 +4,7 @@ const { last, mergeDeepRight, path, pathOr, split } = require('ramda');
 
 const { authenticatedConnectionLabelFor } = require('../connections');
 const { isValid } = require('./validation');
-const { sendEventTo, uuid } = require('../../system/effects');
+const { broadcastEvent, uuid } = require('../../system/effects');
 const EVENT_TYPES = require('../events/types');
 
 const validateAction = config => async ([actionType, action, ack], next) => {
@@ -55,7 +55,7 @@ const updateActionStatus = function * (eventType, action, config) {
     }
   });
 
-  yield sendEventTo(config.io, config.socket.id, eventType, updatedAction);
+  yield broadcastEvent(config.socket, eventType, updatedAction);
 
   return updatedAction;
 };
@@ -80,7 +80,7 @@ const configSagaRunner = config => function * (originalAction) {
 
   let action = yield cmds.call(initiateAction, originalAction, config);
 
-  yield sendEventTo(config.io, config.socket.id, EVENT_TYPES.ACTION_INITIATED, action);
+  yield broadcastEvent(config.socket, EVENT_TYPES.ACTION_INITIATED, action);
 
   // up
   for (let step of saga) {
