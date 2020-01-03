@@ -1,4 +1,5 @@
 const { cmds } = require('effects-as-data');
+const { path } = require('path');
 
 const { get, sendActionTo, sendEventTo } = require('../../effects');
 const { CREATE_ACCOUNTS } = require('../types');
@@ -18,7 +19,7 @@ const createAccounts = config => function * (action) {
 };
 
 const notifyAccountsCreated = config => function * (action) {
-  const payload = action.action.steps.createAccounts.result;
+  const payload = path(['action', 'steps', 'createAccounts', 'result'], action);
 
   return yield sendEventTo(config.io, config.socket.id, TO_CLIENT_ACCOUNTS_CREATED, payload);
 };
