@@ -15,21 +15,18 @@ A server-side architecture inspired by microservice architecture, CQRS, Redux Sa
 - Purifies code by describing effects as data
 - Deploys to any kubernetes cluster with a single command
 
-## Vocbulary
+## Glossary
 
-To better understand this architecture, let's first define a few terms:
+To better understand this architecture, let's define a few terms:
 
-- **Query Federation**: A GraphQL edge exposing a unified, query-only interface to all view projections.
+- **Edge View**: A federated GraphQL endpoint exposing a unified, query-only interface to all views.
+- **View**: A GraphQL endpoint exposing a particular slice of the graph.
 - **Query**: A normal GraphQL query.
-- **Edge Socket**: A normal dual-channel SocketIO socket exposed to clients.
-- **Action**: A messages sent to the write channel of the edge socket. Also called a "command" in the CQRS architecture.
-- **Event**: A messages sent from the read channel of the edge socket.
+- **Edge Socket**: A dual-channel SocketIO socket exposed to clients.
+- **Socket**: A dual-channel SocketIO socket exposed to the edge socket.
+- **Action**: A message sent to the edge socket by a client. Also called a "command" in the CQRS architecture. Actions are used to *WRITE* to state.
 - **Saga**: A series of steps taken in response to an action.
 - **Step**: A single computation as part of a saga.
-- **Effect**: An instruction (impure) which uses or modifies external state.
-
-VIEW PROJECTOR
------------------------------------------------------------
-  persist state
-  emit PROJECTION_UPDATED event (effect)
-
+- **Event**: A message sent from any socket or view. Some events can be broadcast to server-side or client consumers. They can be sent to all consumer, a namespace containing many consumers or an individual consumer. Events are used to *READ* from state.
+- **Effect**: An impure instruction which uses or modifies external state.
+- **Interpreter**: A subsystem which actually executes effects. This allows code to be written and tested without side-effects.
