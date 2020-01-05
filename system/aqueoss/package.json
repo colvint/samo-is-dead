@@ -7,9 +7,9 @@
   "license": "ISC",
   "dependencies": {
     "@hapi/joi": "^17.0.0",
+    "@your-organization/config": "^1.0.0",
     "axios": "^0.19.0",
     "chalk": "^3.0.0",
-    "@your-organization/config": "^1.0.0",
     "effects-as-data": "^3.0.17",
     "humps": "^2.0.1",
     "jsonwebtoken": "^8.5.1",

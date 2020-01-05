@@ -6,7 +6,7 @@
   "author": "Taurus Colvin <taurus.colvin@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "@aqueoss/system": "1.0.0",
+    "@aqueoss/system": "^1.0.0",
     "@hapi/joi": "^17.0.0",
     "@your-organization/config": "^1.0.0",
     "effects-as-data": "^3.0.17",
