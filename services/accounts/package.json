@@ -1,6 +1,8 @@
 {
-  "name": "@your-organization/edge",
+  "name": "@your-organization/accounts",
   "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "start": "nodemon"
   },
@@ -13,7 +15,6 @@
     "@aqueoss/system": "^1.0.0",
     "@your-organization/config": "^1.0.0",
     "@your-organization/system": "^1.0.0",
-    "effects-as-data": "^3.0.17",
     "express": "^4.17.1",
     "socket.io": "^2.3.0"
   }
