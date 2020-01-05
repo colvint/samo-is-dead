@@ -2,9 +2,9 @@ const chalk = require('chalk');
 const jwt = require('jsonwebtoken');
 const socketioJwt = require('socketio-jwt');
 
-const { JWT } = require('../config');
+const { JWT } = require('config');
 
-const authenticatedConnectionLabelFor = ({ id, decoded_token }) => decoded_token.clientName || decoded_token.email;
+const authenticatedConnectionLabelFor = ({ decoded_token }) => decoded_token.clientName || decoded_token.email;
 
 const authenticateConnection = secret => socketioJwt.authorize({ secret, handshake: true, auth_header_required: true });
 

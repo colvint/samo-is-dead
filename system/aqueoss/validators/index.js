@@ -11,5 +11,5 @@ const isValid = (validator, object) => {
 };
 
 module.exports = {
-  isValid
+  isValid,
 };

@@ -1,0 +1,8 @@
+{
+  "packages": [
+    "system/*",
+    "services/*",
+    "views/*"
+  ],
+  "version": "0.0.0"
+}

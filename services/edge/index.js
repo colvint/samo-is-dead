@@ -1,29 +1,29 @@
+const { call } = require('effects-as-data');
 const app = require('express')();
 const edgeService = require('http').createServer(app);
 const edgeSocketServer = require('socket.io')(edgeService);
 
-const { accountsSocketClient } = require('./clients');
-const { authenticateConnection, logClientConnectedEvent, logSocketListeningEvent } = require('../../system/connections');
-const { configSagaRunner, runSaga, validateAction } = require('../../system/lib/action-handling');
-const { JWT, SERVICES: { EDGE } } = require('../../config');
-const ACTION_TYPES = require('../../system/actions/types');
-const ACTIONS = require('../../system/actions');
-const EVENT_TYPES = require('../../system/events/types');
-const VALIDATORS = require('../../system/validators');
+const { CONNECTIONS: { authenticateConnection, logClientConnectedEvent, logSocketListeningEvent }, ACTIONS: { runSaga, validateAction } } = require('@aqueoss/system');
+const { EVENTS } = require('@your-organization/system');
+const { JWT, SERVICES: { EDGE } } = require('@your-organization/config');
+const { VALIDATORS } = require('@your-organization/system');
+const SAGAS = require('./sagas');
+
+const callSaga = (config, saga) => action => call(runSaga, config, saga, action); 
 
 const setupActionHandlers = io => socket => {
-  const config = { io, socket, ACTIONS, accountsSocketClient };
+  const config = { io, socket };
 
   return socket
     .use(validateAction({ socket, VALIDATORS }))
     // .use(authorizeAction({ socket, AUTHORIZERS }))
-    .on(EVENT_TYPES.FROM_CLIENT_ACCOUNTS_CREATION_REQUESTED, runSaga(configSagaRunner({ ...config, actionType: ACTION_TYPES.CREATE_ACCOUNTS })));
+    .on(EVENTS.FROM_CLIENT_ACCOUNTS_CREATION_REQUESTED, callSaga(config, SAGAS.CREATE_ACCOUNTS));
 };
 
 edgeSocketServer
   .use(authenticateConnection(JWT.CLIENT_SECRET))
-  .on(EVENT_TYPES.SOCKET_CONNECTED, setupActionHandlers(edgeSocketServer))
-  .on(EVENT_TYPES.SOCKET_CONNECTED, logClientConnectedEvent);
+  .on(EVENTS.SOCKET_CONNECTED, setupActionHandlers(edgeSocketServer))
+  .on(EVENTS.SOCKET_CONNECTED, logClientConnectedEvent);
 
 edgeService
   .listen(EDGE.SOCKET_PORT, () => logSocketListeningEvent(EDGE) );

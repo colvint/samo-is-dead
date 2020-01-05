@@ -1,0 +1,11 @@
+{
+  "name": "@your-organization/config",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "Taurus Colvin <taurus.colvin@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^17.0.0"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "edge",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "nodemon"
+  },
+  "author": "Taurus Colvin <taurus.colvin@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "@aqueoss/system": "^1.0.0",
+    "@your-organization/config": "^1.0.0",
+    "@your-organization/system": "^1.0.0",
+    "effects-as-data": "^3.0.17",
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  }
+}

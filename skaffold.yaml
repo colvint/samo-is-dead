@@ -1,0 +1,38 @@
+apiVersion: skaffold/v2alpha1
+kind: Config
+metadata:
+  name: aqueoss
+build:
+  local: {}
+  tagPolicy:
+    sha256: {}
+  artifacts:
+  - image: aqueoss/accounts
+    context: ./services/accounts
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+      - src: 'package.json'
+        dest: '/app/'
+      - src: 'migrations/*.js'
+        dest: '/app/'
+      - src: '*.js'
+        dest: '/app/'
+deploy:
+  helm:
+    releases:
+    - name: aqueoss-accounts
+      chartPath: ./deploy/charts/accounts
+      values:
+        image: aqueoss/accounts
+      useHelmSecrets: true
+      valuesFiles:
+      - deploy/environments/dev/accounts/secrets.yaml
+      - deploy/environments/dev/accounts/values.yaml
+    - name: aqueoss-federation
+      chartPath: ./deploy/charts/federation
+      values:
+        image: aqueoss/federation
+      valuesFiles:
+      - deploy/environments/dev/federation/values.yaml

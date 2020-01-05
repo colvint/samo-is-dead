@@ -1,11 +1,11 @@
-const { call, cmds } = require("effects-as-data");
+const { cmds } = require("effects-as-data");
 const { camelize } = require('humps');
 const { last, mergeDeepRight, path, pathOr, split } = require('ramda');
 
 const { authenticatedConnectionLabelFor } = require('../connections');
-const { isValid } = require('./validation');
-const { broadcastEvent, uuid } = require('../../system/effects');
-const EVENT_TYPES = require('../events/types');
+const { isValid } = require('../validators');
+const { broadcastEvent, uuid } = require('../effects');
+const EVENT_TYPES = require('../events');
 
 const validateAction = config => async ([actionType, action, ack], next) => {
   const validator = config.VALIDATORS[actionType];
@@ -74,9 +74,8 @@ const mergeResponseIntoAction = (stepName, stepResponse, action) =>
     }
   });
 
-const configSagaRunner = config => function * (originalAction) {
+const runSaga = function * (config, saga, originalAction) {
   const rollbackSaga = [];
-  const saga = config.ACTIONS[config.actionType];
 
   let action = yield cmds.call(initiateAction, originalAction, config);
 
@@ -117,11 +116,8 @@ const configSagaRunner = config => function * (originalAction) {
   return action;
 };
 
-const runSaga = sagaRunner => action => call(sagaRunner, action);
-
 module.exports = {
   actionResultPathFor,
-  configSagaRunner,
   runSaga,
   validateAction
 };
