@@ -1,5 +1,5 @@
 {
-  "name": "@your-organization/accounts",
+  "name": "@your-organization/accounts-service",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

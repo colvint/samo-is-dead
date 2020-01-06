@@ -1,8 +1,13 @@
+const { addInterpreters, onError } = require('effects-as-data');
 const { ApolloServer } = require("apollo-server");
 const { ApolloGateway } = require("@apollo/gateway");
 const chalk = require('chalk');
 
-const { VIEWS } = require('../config');
+const { VIEWS } = require('@your-organization/config');
+const { EFFECTS } = require('@your-organization/system');
+
+addInterpreters(EFFECTS.interpreters);
+onError(console.error);
 
 const gateway = new ApolloGateway({
   serviceList: [
@@ -17,6 +22,6 @@ const server = new ApolloServer({
   subscriptions: false, // Disable subscriptions (not currently supported with ApolloGateway)
 });
 
-server.listen(VIEWS.GATEWAY.GRAPHQL_PORT).then(({ url }) => {
-  console.log(`🚀  ${chalk.blue(VIEWS.GATEWAY.NAME)} graphQL federation ready at ${url}`)
+server.listen(VIEWS.EDGE.GRAPHQL_PORT).then(({ url }) => {
+  console.log(`🚀  ${chalk.blue(VIEWS.EDGE.NAME)} graphQL federation ready at ${url}`)
 });

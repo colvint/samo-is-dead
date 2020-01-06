@@ -1,4 +1,4 @@
-const { dbInsert } = require('../../../system/effects');
+const { EFFECTS: { dbInsert } } = require('@aqueoss/system');
 
 const insertAccounts = function * (db, accounts) {
   return yield dbInsert(db, 'accounts', accounts.map(a => ({

@@ -1,17 +1,27 @@
 const { ApolloServer, gql } = require('apollo-server');
 const { buildFederatedSchema } = require('@apollo/federation');
-const { call } = require('effects-as-data');
+const { addInterpreters, call, onError } = require('effects-as-data');
 const chalk = require('chalk');
 
 const { accountsSocketClient } = require('./clients');
+const { EFFECTS, EVENTS } = require('@your-organization/system');
 const { insertAccounts } = require('./persistors');
-const { resolveQuery } = require('../lib');
-const { VIEWS } = require('../../config');
-const accountsDb = require('knex')(VIEWS.ACCOUNTS.DB);
-const EVENT_TYPES = require('../../system/events/types');
+const { STEPS: { resolveQuery } } = require('@aqueoss/system');
+const { VIEWS } = require('@your-organization/config');
+
+const accountsDb = require('knex')({
+  client: 'sqlite3',
+  connection: {
+    filename: './db.sqlite3'
+  },
+  useNullAsDefault: true      
+});
+
+addInterpreters(EFFECTS.interpreters);
+onError(console.error);
 
 accountsSocketClient
-  .on(EVENT_TYPES.ACCOUNTS_MASS_CREATED, accounts => call(insertAccounts, accountsDb, accounts));
+  .on(EVENTS.ACCOUNTS_MASS_CREATED, accounts => call(insertAccounts, accountsDb, accounts));
 
 const typeDefs = gql`
   type Query {

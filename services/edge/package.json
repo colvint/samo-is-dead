@@ -1,5 +1,5 @@
 {
-  "name": "@your-organization/edge",
+  "name": "@your-organization/edge-service",
   "version": "1.0.0",
   "scripts": {
     "start": "nodemon"
