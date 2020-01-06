@@ -4,9 +4,8 @@ const edgeService = require('http').createServer(app);
 const edgeSocketServer = require('socket.io')(edgeService);
 
 const { CONNECTIONS: { authenticateConnection, logClientConnectedEvent, logSocketListeningEvent }, ACTIONS: { runSaga, validateAction } } = require('@aqueoss/system');
-const { EVENTS } = require('@your-organization/system');
+const { EFFECTS, EVENTS, VALIDATORS } = require('@your-organization/system');
 const { JWT, SERVICES: { EDGE } } = require('@your-organization/config');
-const { EFFECTS, VALIDATORS } = require('@your-organization/system');
 const SAGAS = require('./sagas');
 
 addInterpreters(EFFECTS.interpreters);
@@ -20,7 +19,7 @@ const setupActionHandlers = io => socket => {
   return socket
     .use(validateAction({ socket, VALIDATORS }))
     // .use(authorizeAction({ socket, AUTHORIZERS }))
-    .on(EVENTS.FROM_CLIENT_ACCOUNTS_CREATION_REQUESTED, callSaga(config, SAGAS.CREATE_ACCOUNTS));
+    .on(EVENTS.ACCOUNTS_MASS_CREATION_REQUESTED, callSaga(config, SAGAS.CREATE_ACCOUNTS));
 };
 
 edgeSocketServer

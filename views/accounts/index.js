@@ -11,7 +11,7 @@ const accountsDb = require('knex')(VIEWS.ACCOUNTS.DB);
 const EVENT_TYPES = require('../../system/events/types');
 
 accountsSocketClient
-  .on(EVENT_TYPES.STATE_CHANGE_ACCOUNTS_CREATED, accounts => call(insertAccounts, accountsDb, accounts));
+  .on(EVENT_TYPES.ACCOUNTS_MASS_CREATED, accounts => call(insertAccounts, accountsDb, accounts));
 
 const typeDefs = gql`
   type Query {

@@ -18,7 +18,7 @@ const createAccounts = config => function * (action, ack) {
   const response = yield cmds.call(getRandomUsers, action.data.count);
 
   if (response.success)
-    yield broadcastEvent(config.socket, EVENT_TYPES.STATE_CHANGE_ACCOUNTS_CREATED, response.result);
+    yield broadcastEvent(config.socket, EVENT_TYPES.ACCOUNTS_MASS_CREATED, response.result);
 
   ack(response);
 
@@ -29,7 +29,7 @@ const notifyClientAccountsCreated = config => function * (action) {
   yield sendEventTo(
     config.io,
     config.socket.id,
-    EVENT_TYPES.TO_CLIENT_ACCOUNTS_CREATED,
+    EVENT_TYPES.ACCOUNTS_MASS_CREATED,
     path(['action', 'steps', 'invokeRemoteCreateAccounts', 'result'], action)
   );
 
@@ -37,7 +37,7 @@ const notifyClientAccountsCreated = config => function * (action) {
 };
 
 const notifyClientAccountsCreateFailed = config => function * (action) {
-  yield sendEventTo(config.io, config.socket.id, EVENT_TYPES.TO_CLIENT_ACCOUNTS_CREATE_FAILED, action.data);
+  yield sendEventTo(config.io, config.socket.id, EVENT_TYPES.ACCOUNTS_MASS_CREATE_FAILED, action.data);
 
   return action;
 };
