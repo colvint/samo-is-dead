@@ -1,6 +1,6 @@
 const { accountsSocketClient } = require('../clients');
 const { STEPS: { invokeRemoteStep } } = require('@aqueoss/system');
-const { STEPS: { notifyAccountsCreated, notifyClientAccountsCreateFailed, STEP_TYPES } } = require('@your-organization/system');
+const { STEPS: { notifyClientAccountsCreated, notifyClientAccountsCreateFailed, STEP_TYPES } } = require('@your-organization/system');
 
 module.exports = [
   {
@@ -8,6 +8,6 @@ module.exports = [
     down: { name: 'notifyClientAccountsCreateFailed', run: notifyClientAccountsCreateFailed }
   },
   {
-    up: { name: 'notifyAccountsCreated', run: notifyAccountsCreated },
+    up: { name: 'notifyClientAccountsCreated', run: notifyClientAccountsCreated },
   }
 ];

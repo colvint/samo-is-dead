@@ -2,7 +2,7 @@ const { cmds } = require('effects-as-data');
 const { path } = require('ramda');
 
 const { broadcastEvent, get, sendEventTo } = require('../effects');
-const { TO_CLIENT_ACCOUNTS_CREATED, TO_CLIENT_ACCOUNTS_CREATE_FAILED } = require('../events');
+const EVENT_TYPES = require('../events');
 const STEP_TYPES = require('./types');
 
 const getRandomUsers = function * (count = 1) {
@@ -26,13 +26,20 @@ const createAccounts = config => function * (action, ack) {
 };
 
 const notifyClientAccountsCreated = config => function * (action) {
-  const payload = path(['action', 'steps', 'createAccounts', 'result'], action);
+  yield sendEventTo(
+    config.io,
+    config.socket.id,
+    EVENT_TYPES.TO_CLIENT_ACCOUNTS_CREATED,
+    path(['action', 'steps', 'invokeRemoteCreateAccounts', 'result'], action)
+  );
 
-  return yield sendEventTo(config.io, config.socket.id, TO_CLIENT_ACCOUNTS_CREATED, payload);
+  return action;
 };
 
 const notifyClientAccountsCreateFailed = config => function * (action) {
-  return yield sendEventTo(config.io, config.socket.id, TO_CLIENT_ACCOUNTS_CREATE_FAILED, action.data);
+  yield sendEventTo(config.io, config.socket.id, EVENT_TYPES.TO_CLIENT_ACCOUNTS_CREATE_FAILED, action.data);
+
+  return action;
 };
 
 module.exports = {
