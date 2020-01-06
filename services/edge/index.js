@@ -1,4 +1,4 @@
-const { call } = require('effects-as-data');
+const { addInterpreters, call, onError } = require('effects-as-data');
 const app = require('express')();
 const edgeService = require('http').createServer(app);
 const edgeSocketServer = require('socket.io')(edgeService);
@@ -6,8 +6,11 @@ const edgeSocketServer = require('socket.io')(edgeService);
 const { CONNECTIONS: { authenticateConnection, logClientConnectedEvent, logSocketListeningEvent }, ACTIONS: { runSaga, validateAction } } = require('@aqueoss/system');
 const { EVENTS } = require('@your-organization/system');
 const { JWT, SERVICES: { EDGE } } = require('@your-organization/config');
-const { VALIDATORS } = require('@your-organization/system');
+const { EFFECTS, VALIDATORS } = require('@your-organization/system');
 const SAGAS = require('./sagas');
+
+addInterpreters(EFFECTS.interpreters);
+onError(console.error);
 
 const callSaga = (config, saga) => action => call(runSaga, config, saga, action); 
 
