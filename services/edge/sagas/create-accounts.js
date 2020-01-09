@@ -1,5 +1,5 @@
 const { accountsSocketClient } = require('../clients');
-const { STEPS: { invokeRemoteStep } } = require('@aqueoss/system');
+const { STEPS: { invokeRemoteStep } } = require('@fxos/system');
 const { STEPS: { notifyClientAccountsCreated, notifyClientAccountsCreateFailed, STEP_TYPES } } = require('@your-organization/system');
 
 module.exports = [

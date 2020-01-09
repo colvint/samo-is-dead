@@ -6,7 +6,7 @@ const chalk = require('chalk');
 const { accountsSocketClient } = require('./clients');
 const { EFFECTS, EVENTS } = require('@your-organization/system');
 const { insertAccounts } = require('./persistors');
-const { STEPS: { resolveQuery } } = require('@aqueoss/system');
+const { STEPS: { resolveQuery } } = require('@fxos/system');
 const { VIEWS } = require('@your-organization/config');
 
 const accountsDb = require('knex')({

@@ -3,7 +3,7 @@ const app = require('express')();
 const edgeService = require('http').createServer(app);
 const edgeSocketServer = require('socket.io')(edgeService);
 
-const { CONNECTIONS: { authenticateConnection, logClientConnectedEvent, logSocketListeningEvent }, ACTIONS: { runSaga, validateAction } } = require('@aqueoss/system');
+const { CONNECTIONS: { authenticateConnection, logClientConnectedEvent, logSocketListeningEvent }, ACTIONS: { runSaga, validateAction } } = require('@fxos/system');
 const { EFFECTS, EVENTS, VALIDATORS } = require('@your-organization/system');
 const { JWT, SERVICES: { EDGE } } = require('@your-organization/config');
 const SAGAS = require('./sagas');

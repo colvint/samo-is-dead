@@ -2,7 +2,7 @@ const app = require('express')();
 const accountsService = require('http').createServer(app);
 const accountsSocketServer = require('socket.io')(accountsService);
 
-const { CONNECTIONS: { authenticateConnection, logClientConnectedEvent, logSocketListeningEvent }, STEPS: { ackStep } } = require('@aqueoss/system');
+const { CONNECTIONS: { authenticateConnection, logClientConnectedEvent, logSocketListeningEvent }, STEPS: { ackStep } } = require('@fxos/system');
 const { JWT, SERVICES: { ACCOUNTS } } = require('@your-organization/config');
 // const { validateAction } = require('../../system/lib/action-handling');
 const { EVENTS, STEPS: { createAccounts, STEP_TYPES } } = require('@your-organization/system');

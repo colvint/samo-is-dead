@@ -1,4 +1,4 @@
-const { EVENTS } = require('@aqueoss/system');
+const { EVENTS } = require('@fxos/system');
 
 module.exports = {
   ...EVENTS,

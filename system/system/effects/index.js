@@ -1,3 +1,3 @@
-const { EFFECTS } = require('@aqueoss/system');
+const { EFFECTS } = require('@fxos/system');
 
 module.exports = EFFECTS;

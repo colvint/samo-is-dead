@@ -10,7 +10,7 @@
     "nodemon": "^2.0.2"
   },
   "dependencies": {
-    "@aqueoss/system": "^1.0.0",
+    "@fxos/system": "^1.0.0",
     "@your-organization/config": "^1.0.0",
     "@your-organization/system": "^1.0.0",
     "effects-as-data": "^3.0.17",
