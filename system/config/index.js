@@ -1,22 +1,20 @@
 module.exports = {
+  DEFAULT_CONTAINER_HTTP_PORT: 4000,
+  DEFAULT_CONTAINER_HTTPS_PORT: 4001,
   VIEWS: {
     ACCOUNTS: {
-      NAME: 'ACCOUNTS_VIEW',
-      GRAPHQL_PORT: 3033,
+      NAME: 'ACCOUNTS_VIEW'
     },
     EDGE: {
-      NAME: 'EDGE_VIEW',
-      GRAPHQL_PORT: 3029
+      NAME: 'EDGE_VIEW'
     },
   },
   SERVICES: {
     EDGE: {
-      NAME: 'EDGE_SERVICE',
-      SOCKET_PORT: 3030
+      NAME: 'EDGE_SERVICE'
     },
     ACCOUNTS: {
-      NAME: 'ACCOUNTS_SERVICE',
-      SOCKET_PORT: 3031
+      NAME: 'ACCOUNTS_SERVICE'
     }
   },
   JWT: {

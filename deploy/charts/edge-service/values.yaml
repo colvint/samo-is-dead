@@ -1,0 +1,3 @@
+replicaCount: 1
+httpPort: 4000
+httpsPort: 4001

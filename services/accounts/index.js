@@ -2,8 +2,8 @@ const app = require('express')();
 const accountsService = require('http').createServer(app);
 const accountsSocketServer = require('socket.io')(accountsService);
 
-const { CONNECTIONS: { authenticateConnection, logClientConnectedEvent, logSocketListeningEvent }, STEPS: { ackStep } } = require('@fxos/system');
-const { JWT, SERVICES: { ACCOUNTS } } = require('@your-organization/config');
+const { CONNECTIONS: { authenticateConnection, logClientConnectedEvent, logServiceListeningEvent }, STEPS: { ackStep } } = require('@fxos/system');
+const { JWT, DEFAULT_CONTAINER_HTTP_PORT, SERVICES: { ACCOUNTS } } = require('@your-organization/config');
 // const { validateAction } = require('../../system/lib/action-handling');
 const { EVENTS, STEPS: { createAccounts, STEP_TYPES } } = require('@your-organization/system');
 
@@ -18,4 +18,4 @@ accountsSocketServer
   .on(EVENTS.SOCKET_CONNECTED, logClientConnectedEvent);
 
 accountsService
-  .listen(ACCOUNTS.SOCKET_PORT, () => logSocketListeningEvent(ACCOUNTS));
+  .listen(DEFAULT_CONTAINER_HTTP_PORT, () => logServiceListeningEvent(ACCOUNTS.NAME, DEFAULT_CONTAINER_HTTP_PORT));

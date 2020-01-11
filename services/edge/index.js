@@ -3,9 +3,9 @@ const app = require('express')();
 const edgeService = require('http').createServer(app);
 const edgeSocketServer = require('socket.io')(edgeService);
 
-const { CONNECTIONS: { authenticateConnection, logClientConnectedEvent, logSocketListeningEvent }, ACTIONS: { runSaga, validateAction } } = require('@fxos/system');
+const { CONNECTIONS: { authenticateConnection, logClientConnectedEvent, logServiceListeningEvent }, ACTIONS: { runSaga, validateAction } } = require('@fxos/system');
 const { EFFECTS, EVENTS, VALIDATORS } = require('@your-organization/system');
-const { JWT, SERVICES: { EDGE } } = require('@your-organization/config');
+const { JWT, DEFAULT_CONTAINER_HTTP_PORT, SERVICES: { EDGE } } = require('@your-organization/config');
 const SAGAS = require('./sagas');
 
 addInterpreters(EFFECTS.interpreters);
@@ -28,4 +28,4 @@ edgeSocketServer
   .on(EVENTS.SOCKET_CONNECTED, logClientConnectedEvent);
 
 edgeService
-  .listen(EDGE.SOCKET_PORT, () => logSocketListeningEvent(EDGE) );
+  .listen(DEFAULT_CONTAINER_HTTP_PORT, () => logServiceListeningEvent(EDGE.NAME, DEFAULT_CONTAINER_HTTP_PORT) );
