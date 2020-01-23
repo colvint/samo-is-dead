@@ -1,19 +1,22 @@
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
-# FxOS
-Effects-Oriented System
+# SAMO
 
-![image info](./docs/fxos.png)
+A reference archiecture dedicated to the work of Jean-Michel Basquiat.
 
-## What?
+![image info](./docs/basquiat-back-of-neck.jpg)
 
-A server-side architecture inspired by microservice architecture, CQRS, Redux Saga and PubSub.
+## What
+
+A server-side architecture with properties of microservices, CQRS, Redux Saga and PubSub.
 
 - Scales processing units independently
 - Separates read and write operations
 - Publishes realtime events
 - Purifies code by describing effects as data
 - Deploys to any kubernetes cluster with a single command
+
+![image info](./docs/samo.svg)
 
 ## Glossary
 
