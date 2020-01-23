@@ -1,8 +1,6 @@
-[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
-
 # SAMO
 
-A reference archiecture dedicated to the work of Jean-Michel Basquiat.
+A reference architecture dedicated to the work of Jean-Michel Basquiat.
 
 ![image info](./docs/basquiat-back-of-neck.jpg)
 
@@ -17,6 +15,8 @@ A server-side architecture with properties of microservices, CQRS, Redux Saga an
 - Deploys to any kubernetes cluster with a single command
 
 ![image info](./docs/samo.svg)
+
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
 ## Glossary
 
