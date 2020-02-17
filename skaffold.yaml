@@ -7,28 +7,39 @@ build:
   tagPolicy:
     sha256: {}
   artifacts:
-  - image: your-organization/accounts-service
-    context: .
-    docker:
-      dockerfile: accounts-service.Dockerfile
   - image: your-organization/edge-service
     context: .
     docker:
       dockerfile: edge-service.Dockerfile
+  - image: your-organization/accounts-service
+    context: .
+    docker:
+      dockerfile: accounts-service.Dockerfile
+  - image: your-organization/accounts-view
+    context: .
+    docker:
+      dockerfile: accounts-view.Dockerfile
 deploy:
   helm:
     releases:
     - name: your-organization-edge-service
-      chartPath: deploy/charts/edge-service
+      chartPath: deploy/charts/services/edge
       values:
         image: your-organization/edge-service
       useHelmSecrets: true
       valuesFiles:
-      - deploy/charts/edge-service/values.yaml
+      - deploy/charts/services/values.yaml
     - name: your-organization-accounts-service
-      chartPath: deploy/charts/accounts-service
+      chartPath: deploy/charts/services/accounts
       values:
         image: your-organization/accounts-service
       useHelmSecrets: true
       valuesFiles:
-      - deploy/charts/accounts-service/values.yaml
+      - deploy/charts/services/values.yaml
+    - name: your-organization-accounts-view
+      chartPath: deploy/charts/views/accounts
+      values:
+        image: your-organization/accounts-view
+      useHelmSecrets: true
+      valuesFiles:
+      - deploy/charts/views/values.yaml
