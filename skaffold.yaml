@@ -1,45 +1,47 @@
 apiVersion: skaffold/v2alpha1
 kind: Config
 metadata:
-  name: your-organization
+  name: samo
 build:
   local: {}
   tagPolicy:
     sha256: {}
   artifacts:
-  - image: your-organization/edge-service
+  - image: samo/edge-service
     context: .
     docker:
       dockerfile: edge-service.Dockerfile
-  - image: your-organization/accounts-service
+  - image: samo/accounts-service
     context: .
     docker:
       dockerfile: accounts-service.Dockerfile
-  - image: your-organization/accounts-view
+  - image: samo/accounts-view
     context: .
     docker:
       dockerfile: accounts-view.Dockerfile
 deploy:
   helm:
     releases:
-    - name: your-organization-edge-service
-      chartPath: deploy/charts/services/edge
+    - name: samo-kafka-setup
+      chartPath: deploy/charts/kafka-setup
+    - name: samo-edge-service
+      chartPath: deploy/charts/edge
       values:
-        image: your-organization/edge-service
+        image: samo/edge-service
       useHelmSecrets: true
       valuesFiles:
-      - deploy/charts/services/values.yaml
-    - name: your-organization-accounts-service
-      chartPath: deploy/charts/services/accounts
+      - deploy/charts/values.yaml
+    - name: samo-accounts-service
+      chartPath: deploy/charts/accounts
       values:
-        image: your-organization/accounts-service
+        image: samo/accounts-service
       useHelmSecrets: true
       valuesFiles:
-      - deploy/charts/services/values.yaml
-    - name: your-organization-accounts-view
-      chartPath: deploy/charts/views/accounts
+      - deploy/charts/values.yaml
+    - name: samo-accounts-view
+      chartPath: deploy/charts/accounts
       values:
-        image: your-organization/accounts-view
+        image: samo/accounts-view
       useHelmSecrets: true
       valuesFiles:
-      - deploy/charts/views/values.yaml
+      - deploy/charts/values.yaml

@@ -1,0 +1,60 @@
+{
+  "entries": {
+    "brew": {
+      "minikube": {
+        "version": "1.7.2",
+        "bottle": {
+          "cellar": ":any_skip_relocation",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/minikube-1.7.2.catalina.bottle.tar.gz",
+              "sha256": "fbba21e83cbdc7b4827ec790fbcfb35138e3f71258ffe84d5ca32862ee469623"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/minikube-1.7.2.mojave.bottle.tar.gz",
+              "sha256": "9a8d465faacc19e8183fcdc3702c9b2a2f8944b83fbc781cfd2212966c25eb85"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/minikube-1.7.2.high_sierra.bottle.tar.gz",
+              "sha256": "31840d2aa66a48d16d296229212961d344ce28252d310cc0ad0572fd0aec5571"
+            }
+          }
+        }
+      },
+      "helm": {
+        "version": "3.1.0",
+        "bottle": {
+          "cellar": ":any_skip_relocation",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/helm-3.1.0.catalina.bottle.tar.gz",
+              "sha256": "e415e0ae8cdb990297d5e0fa780c61d7f17c083c1a00d09fa58ab58358263e97"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/helm-3.1.0.mojave.bottle.tar.gz",
+              "sha256": "65fe55c8db2c3b3610dc100a38cb7e9fa902c47353d6cbe380b70e1dfc6be6de"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/helm-3.1.0.high_sierra.bottle.tar.gz",
+              "sha256": "4793f7f087c0340d9fd30403efedd852f47d376b01a1eda76e04d20c1e925de1"
+            }
+          }
+        }
+      }
+    }
+  },
+  "system": {
+    "macos": {
+      "catalina": {
+        "HOMEBREW_VERSION": "2.2.6",
+        "HOMEBREW_PREFIX": "/usr/local",
+        "Homebrew/homebrew-core": "bd7a1379b573bdf91d133d62cfe1392c179cbb63",
+        "CLT": "11.0.33.17",
+        "Xcode": "11.3.1",
+        "macOS": "10.15.3"
+      }
+    }
+  }
+}

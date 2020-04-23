@@ -1,0 +1,26 @@
+{
+  "name": "@your-organization/accounts-view",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Taurus Colvin <taurus.colvin@gmail.com>",
+  "license": "ISC",
+  "scripts": {
+    "start": "nodemon",
+    "migrate": "knex migrate:latest"
+  },
+  "dependencies": {
+    "@apollo/federation": "^0.11.2",
+    "@fxos/system": "^1.0.0",
+    "@your-organization/config": "^1.0.0",
+    "@your-organization/system": "^1.0.0",
+    "apollo-server": "^2.9.15",
+    "chalk": "^3.0.0",
+    "effects-as-data": "^3.0.17",
+    "knex": "^0.20.6",
+    "socket.io-client": "^2.3.0",
+    "sqlite3": "^4.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}

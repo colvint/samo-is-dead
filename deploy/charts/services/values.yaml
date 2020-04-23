@@ -1,4 +1,0 @@
-replicaCount: 1
-imagePullPolicy: Never
-httpPort: 4000
-httpsPort: 4001
